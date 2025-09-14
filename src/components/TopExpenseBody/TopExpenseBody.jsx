@@ -15,10 +15,10 @@ const TopExpenseBody = () => {
         ]);
     
     //functions
-    const showSortedData = () => {
-        console.log(chartData);
-        // return chartData.sort((a,b) => b.value - a.value);
-    }
+const showSortedData = () => {
+    console.log(chartData);
+    return [...chartData].sort((a, b) => b.value - a.value);
+};
     
     return (
         <div className='TopExpensesBody' style={{height: "100px"}} onClick={showSortedData}>
