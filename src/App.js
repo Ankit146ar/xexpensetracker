@@ -91,7 +91,7 @@ function App() {
   useEffect(() => {
     if (!initialRender.current) {
       localStorage.setItem(
-        "allData",
+        "expenses",
         JSON.stringify({ money, transactionData })
       );
     }
@@ -100,7 +100,7 @@ function App() {
   // functions
   const onLoad = () => {
     try {
-      const localData = localStorage.getItem("allData");
+      const localData = localStorage.getItem("expenses");
       if (localData) {
         const parsed = JSON.parse(localData);
 
@@ -110,7 +110,7 @@ function App() {
       } else {
         // initialize storage the first time
         localStorage.setItem(
-          "allData",
+          "expenses",
           JSON.stringify({ money, transactionData })
         );
       }
