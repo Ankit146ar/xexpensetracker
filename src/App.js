@@ -35,7 +35,7 @@ function App() {
       );
        localStorage.setItem(
         "expenses",
-        JSON.stringify({ "money" : money, "transactionData" : transactionData })
+        JSON.stringify(transactionData)
       );
     }
   }, [money, transactionData]);
@@ -61,8 +61,9 @@ function App() {
        
          localStorage.setItem(
           "expenses",
-           JSON.stringify({ "money" : money, "transactionData" : transactionData })
+           JSON.stringify(transactionData)
         );
+        console.log( JSON.stringify({ "money" : money, "transactionData" : transactionData }));
       }
     } catch (err) {
       console.error("Error loading data from localStorage", err);
