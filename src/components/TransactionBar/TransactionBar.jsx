@@ -45,13 +45,13 @@ const TransactionBar = props => {
             <span className='transactionIcon'>
                 <img src={selectIcon()}/>
             </span>
-            <span className='TransactionBarBody'>
+            <h2 className='TransactionBarBody'>
                 <span className='TransactionText'>
                     <span className='TransactionName'>{name}</span>
                     <span className='TransactionDate'>{date}</span>
                 </span>
                 <span className='TransactionAmount cardTextRed'>₹{amount}</span>
-            </span>
+            </h2>
             <Button icon={deleteIcon} buttonSize="smallButton" background="backgroundRed" clickFunction={deleteTransaction}/>
             <Button icon={editIcon} buttonSize="smallButton" background="backgroundOrange" clickFunction={toggleModal} />
             {modalOn ? 
