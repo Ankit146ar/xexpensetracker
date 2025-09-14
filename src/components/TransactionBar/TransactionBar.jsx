@@ -16,7 +16,7 @@ import { MoneyContext, TransactionsContext } from '../../Contexts/AllContexts';
 
 const TransactionBar = props => {
     //props
-    const { name, date, amount, category, id } = props;
+    const { title, date, amount, category, id } = props;
     //contexts
     const [money, setMoney] = useContext(MoneyContext);
     const [transactionData, setTransactionData] = useContext(TransactionsContext);
@@ -45,20 +45,20 @@ const TransactionBar = props => {
             <span className='transactionIcon'>
                 <img src={selectIcon()}/>
             </span>
-            <div className='TransactionBarBody'>
+            <h2 className='TransactionBarBody'>
                 <div className='TransactionText'>
-                    <h2 className='TransactionName'>{name}</h2>
+                    <span className='TransactionName'>{title}</span>
                     <span className='TransactionDate'>{date}</span>
                 </div>
                 <span className='TransactionAmount cardTextRed'>₹{amount}</span>
-            </div>
+            </h2>
             <Button icon={deleteIcon} buttonSize="smallButton" background="backgroundRed" clickFunction={deleteTransaction}/>
             <Button icon={editIcon} buttonSize="smallButton" background="backgroundOrange" clickFunction={toggleModal} />
             {modalOn ? 
                 <Modal 
                 toggleModal={toggleModal} 
                 text="Edit Expense"
-                existingData={{name, date, amount, category, id}}
+                existingData={{title, date, amount, category, id}}
                 /> 
             :null
             }

@@ -26,10 +26,10 @@ const TransactionsBody = () => {
 
             for(let i = startIndex; i <= endIndex; i++){
                 if(i >= transactionData.length) break;
-                const { name, date, price, category, id } = transactionData[i];
+                const { title, date, price, category, id } = transactionData[i];
 
                 arr.push(
-                    <TransactionBar key={`${key++}`} name={name} date={date} amount={price} category={category} id={id}/>
+                    <TransactionBar key={`${key++}`} title={title} date={date} amount={price} category={category} id={id}/>
                 )
             }
  console.log(arr);
