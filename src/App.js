@@ -1,3 +1,64 @@
+// import { useEffect, useRef, useState } from 'react'
+// //styles
+// import './App.css';
+// //components
+// import Navbar from './components/Navbar/Navbar'
+// import AppHead from './components/AppHead/AppHead'
+// import AppBody from './components/AppBody/AppBody';
+// //contexts
+// import { TransactionsContext, MoneyContext } from "./Contexts/AllContexts"
+// //variables
+// import { dummyData } from './dummyTransactions';
+
+// function App() {
+//   const [money, setMoney] = useState({
+//     balance: 5000,
+//     expenses: 5000
+//   })
+//   const [transactionData, setTransactionData] = useState(dummyData);
+//   const initialRender = useRef(true);
+
+// useEffect(()=>{
+//   if (initialRender.current) {
+//     onLoad();
+//     initialRender.current = false;
+//   }
+// }, [])
+
+
+//   useEffect(()=> {
+//     //save data to local storage and if it is initial render skip saving
+//     if(!initialRender.current) localStorage.setItem("allData", JSON.stringify({money, transactionData}));
+//   }, [money, transactionData])
+
+//   //functions
+//   const onLoad = () => {
+//     //load data from local storage if present
+//     const localData = localStorage.getItem("allData");
+//     if(localData){
+//       const {money, transactionData} = JSON.parse(localData);
+//       setMoney(money);
+//       setTransactionData(transactionData);
+//     }
+//   }
+  
+
+//   return (
+//     <main className='App'>
+//       <MoneyContext.Provider value={[money, setMoney]}>
+//       <TransactionsContext.Provider value={[transactionData, setTransactionData]}>
+//         <Navbar />
+//         <AppHead balance={money.balance} expenses={money.expenses}/>
+//         <AppBody transactionData={transactionData}/>
+//       </TransactionsContext.Provider> 
+//       </MoneyContext.Provider>
+//     </main>
+//   )
+// }
+
+// export default App
+
+
 import { useEffect, useRef, useState } from 'react'
 //styles
 import './App.css';
@@ -14,46 +75,61 @@ function App() {
   const [money, setMoney] = useState({
     balance: 5000,
     expenses: 5000
-  })
+  });
   const [transactionData, setTransactionData] = useState(dummyData);
   const initialRender = useRef(true);
 
-useEffect(()=>{
-  if (initialRender.current) {
-    onLoad();
-    initialRender.current = false;
-  }
-}, [])
-
-
-  useEffect(()=> {
-    //save data to local storage and if it is initial render skip saving
-    if(!initialRender.current) localStorage.setItem("allData", JSON.stringify({money, transactionData}));
-  }, [money, transactionData])
-
-  //functions
-  const onLoad = () => {
-    //load data from local storage if present
-    const localData = localStorage.getItem("allData");
-    if(localData){
-      const {money, transactionData} = JSON.parse(localData);
-      setMoney(money);
-      setTransactionData(transactionData);
+  // load once
+  useEffect(() => {
+    if (initialRender.current) {
+      onLoad();
+      initialRender.current = false;
     }
-  }
-  
+  }, []);
+
+  // save whenever state changes
+  useEffect(() => {
+    if (!initialRender.current) {
+      localStorage.setItem(
+        "allData",
+        JSON.stringify({ money, transactionData })
+      );
+    }
+  }, [money, transactionData]);
+
+  // functions
+  const onLoad = () => {
+    try {
+      const localData = localStorage.getItem("allData");
+      if (localData) {
+        const parsed = JSON.parse(localData);
+
+        // fallback if keys are missing
+        setMoney(parsed.money ?? { balance: 5000, expenses: 0 });
+        setTransactionData(parsed.transactionData ?? []);
+      } else {
+        // initialize storage the first time
+        localStorage.setItem(
+          "allData",
+          JSON.stringify({ money, transactionData })
+        );
+      }
+    } catch (err) {
+      console.error("Error loading data from localStorage", err);
+    }
+  };
 
   return (
-    <main className='App'>
+    <main className="App">
       <MoneyContext.Provider value={[money, setMoney]}>
-      <TransactionsContext.Provider value={[transactionData, setTransactionData]}>
-        <Navbar />
-        <AppHead balance={money.balance} expenses={money.expenses}/>
-        <AppBody transactionData={transactionData}/>
-      </TransactionsContext.Provider> 
+        <TransactionsContext.Provider value={[transactionData, setTransactionData]}>
+          <Navbar />
+          <AppHead balance={money.balance} expenses={money.expenses} />
+          <AppBody transactionData={transactionData} />
+        </TransactionsContext.Provider>
       </MoneyContext.Provider>
     </main>
-  )
+  );
 }
 
-export default App
+export default App;
