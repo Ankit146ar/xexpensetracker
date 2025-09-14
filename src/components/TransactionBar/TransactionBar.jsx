@@ -41,17 +41,17 @@ const TransactionBar = props => {
         setMoney({balance: newBalance, expenses: newExpense});
     }
     return (
-        <h2 className='TransactionBar'>
+        <div className='TransactionBar'>
             <span className='transactionIcon'>
                 <img src={selectIcon()}/>
             </span>
-            <span className='TransactionBarBody'>
-                <span className='TransactionText'>
-                    <span className='TransactionName'>{name}</span>
+            <div className='TransactionBarBody'>
+                <div className='TransactionText'>
+                    <h2 className='TransactionName'>{name}</h2>
                     <span className='TransactionDate'>{date}</span>
-                </span>
+                </div>
                 <span className='TransactionAmount cardTextRed'>₹{amount}</span>
-            </span>
+            </div>
             <Button icon={deleteIcon} buttonSize="smallButton" background="backgroundRed" clickFunction={deleteTransaction}/>
             <Button icon={editIcon} buttonSize="smallButton" background="backgroundOrange" clickFunction={toggleModal} />
             {modalOn ? 
@@ -62,7 +62,7 @@ const TransactionBar = props => {
                 /> 
             :null
             }
-        </h2>
+        </div>
     );
 };
 
