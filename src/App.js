@@ -12,19 +12,19 @@ import { dummyData } from './dummyTransactions';
 
 function App() {
   const [money, setMoney] = useState({
-    balance: 3800,
-    expenses: 1200
+    balance: 2000,
+    expenses: 5000
   })
   const [transactionData, setTransactionData] = useState(dummyData);
   const initialRender = useRef(true);
 
-  useEffect(()=>{
-    if(initialRender.current)  onLoad();
+useEffect(()=>{
+  if (initialRender.current) {
+    onLoad();
+    initialRender.current = false;
+  }
+}, [])
 
-    return(() => {
-      initialRender.current = false;
-    })
-  }, [])
 
   useEffect(()=> {
     //save data to local storage and if it is initial render skip saving
