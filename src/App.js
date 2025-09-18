@@ -1,15 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
-//styles
 import './App.css';
-//components
 import Navbar from './components/Navbar/Navbar'
 import AppHead from './components/AppHead/AppHead'
 import AppBody from './components/AppBody/AppBody';
-//contexts
 import { TransactionsContext, MoneyContext } from "./Contexts/AllContexts"
-//variables
 import { dummyData } from './dummyTransactions';
-
+  
 function App() {
   const [money, setMoney] = useState({
     balance: 5000,
