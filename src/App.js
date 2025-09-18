@@ -5,8 +5,10 @@ import AppHead from './components/AppHead/AppHead'
 import AppBody from './components/AppBody/AppBody';
 import { TransactionsContext, MoneyContext } from "./Contexts/AllContexts"
 import { dummyData } from './dummyTransactions';
+
   
 function App() {
+  // states
   const [money, setMoney] = useState({
     balance: 5000,
     expenses: 5000
